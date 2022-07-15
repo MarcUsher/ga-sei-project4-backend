@@ -7,6 +7,14 @@ const PORT = process.env.PORT;
 // Importing Routes
 const authRouter = require('./routes/auth');
 
+
+const bodyParser = require('body-parser')
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
+
+
 // Mounting Routes
 app.use('/', authRouter);
 
