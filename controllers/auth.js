@@ -15,7 +15,7 @@ const salt = 10;
 exports.auth_signup_post = (req, res) => {
   let user = new User(req.body);
 
-  console.log(req.body.password);
+//   console.log(req.body.password);
   // Hash the password
   let hashedPassword = bcrypt.hashSync(req.body.password, salt);
   console.log(hashedPassword);
