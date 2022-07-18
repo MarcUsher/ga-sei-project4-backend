@@ -14,6 +14,6 @@ router.post("/trip/add", tripCtrl.trip_create_post);
 // Load the Trips in the database
 router.get("/trip/index", tripCtrl.trip_index_get);
 // Load Trip by ID
-router.get("/trip/detail", tripCtrl.trip_show_get);
+router.get("/trip/detail/:id", tripCtrl.trip_show_get);
 
 module.exports = router;
