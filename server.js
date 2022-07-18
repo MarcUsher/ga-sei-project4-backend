@@ -6,6 +6,7 @@ const PORT = process.env.PORT;
 
 // Importing Routes
 const authRouter = require('./routes/auth');
+const tripRouter = require("./routes/trips");
 const countryRouter = require('./routes/countries')
 
 
@@ -18,6 +19,7 @@ app.use(bodyParser.urlencoded({
 
 // Mounting Routes
 app.use('/', authRouter);
+app.use('/', tripRouter);
 app.use('/', countryRouter);
 
 app.listen(PORT, () => console.log(`Running on port ${PORT}`));
