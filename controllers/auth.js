@@ -101,3 +101,15 @@ exports.auth_profile_get = (req, res) => {
     console.log(error)
 })
 }
+
+exports.user_update_put = (req, res) =>{
+  console.log("req.body", req.body.id)
+  User.findByIdAndUpdate(req.body.id, req.body, {new: true})
+  .then((user) => {
+      res.json({user})
+  })
+  .catch(err => {
+      console.log(err)
+  })
+}
+
