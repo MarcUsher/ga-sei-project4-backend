@@ -7,6 +7,7 @@ const User = require("../models/User");
 
 // Require bCrypt
 const bcrypt = require("bcrypt");
+const { findOne } = require("../models/User");
 const salt = 10;
 
 
@@ -87,3 +88,16 @@ exports.auth_logout_get = (req, res) => {
   req.flash("success", "You are successfully logged out!!");
   res.redirect("/auth/signin");
 };
+
+
+// HTTP GET - Getting the User profile
+
+exports.auth_profile_get = (req, res) => {
+  User.findById(req.query.id)
+  .then(user => {
+    res.json({user: user})
+})
+  .catch(error => {
+    console.log(error)
+})
+}
