@@ -35,7 +35,7 @@ exports.trip_index_get = (req, res) => {
 exports.trip_show_get = (req, res) => {
     console.log(req.params.id);
 
-    Trip.findById(req.params.id)
+    Trip.findById(req.params.id).populate('country')
     .then(trip => {
         res.json({trip: trip})
     })
