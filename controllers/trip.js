@@ -42,4 +42,26 @@ exports.trip_show_get = (req, res) => {
     .catch(error => {
         console.log(error)
     })
+};
+
+// HTTP GET & PUT - Load edit form and Edit trip
+exports.trip_edit_get = (req, res) => {
+    Trip.findById(req.query.id)
+    .then((trip) => {
+        res.json({trip})
+    })
+    .catch(error => {
+        console.log(error)
+    })
+};
+
+exports.trip_update_put = (req, res) => {
+    console.log(req.body._id)
+    Trip.findByIdAndUpdate(req.body._id, req.body, {new: true})
+    .then((trip) => {
+        res.json({trip})
+    })
+    .catch(error => {
+        console.log(error)
+    })
 }

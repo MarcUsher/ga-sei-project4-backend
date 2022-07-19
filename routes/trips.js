@@ -15,5 +15,8 @@ router.post("/trip/add", tripCtrl.trip_create_post);
 router.get("/trip/index", tripCtrl.trip_index_get);
 // Load Trip by ID
 router.get("/trip/detail/:id", tripCtrl.trip_show_get);
+// Edit Trip
+router.get("/trip/edit", tripCtrl.trip_edit_get);
+router.put("/trip/update", tripCtrl.trip_update_put);
 
 module.exports = router;
