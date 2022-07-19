@@ -33,7 +33,7 @@ exports.trip_index_get = (req, res) => {
 
 // HTTP GET - Load trip by ID
 exports.trip_show_get = (req, res) => {
-    console.log(req.query.id);
+    console.log(req.params.id);
 
     Trip.findById(req.params.id)
     .then(trip => {
