@@ -16,7 +16,6 @@ const salt = 10;
 exports.auth_signup_post = (req, res) => {
   let user = new User(req.body);
 
-//   console.log(req.body.password);
   // Hash the password
   let hashedPassword = bcrypt.hashSync(req.body.password, salt);
   console.log(hashedPassword);
@@ -116,28 +115,33 @@ exports.user_update_put = (req, res) =>{
 //  CHANGE PASSWORD
 
 exports.auth_password_put = (req, res, next) => {
-  var user = req.user;
-  if (!bcrypt.compareSync(req.body.password, user.password)) {
-      req.flash("error", "Your current password is incorrect!")
-      res.redirect('/auth/password')
-  } else if (req.body.newPassword !== req.body.newPasswordConfirm) {
-      req.flash("error", "New password and password confirmation don't match!")
-      res.redirect('/auth/password')
-  } else {
-      User.findByIdAndUpdate(req.body.id, req.body)
-      .then(() => {
-      let hashedPassword = bcrypt.hashSync(req.body.newPassword, salt);
-      user.password = hashedPassword;
-      user.save(function(err){
-          if (err) { next(err) }
-              else {
-                  res.redirect('/auth/profile');
-              }
-          })
-      })
-      .catch((err) => {
-          console.log(err);
-          res.send("Sorry there was an error");
-      })
-  }
+  let currentUser = {}
+  console.log('req.body: ', req.body)
+  User.findById(req.body.id)
+  .then(user => {
+    currentUser = user
+
+    if (!bcrypt.compareSync(req.body.currentPassword, currentUser.password)) {
+        res.status(401).body("Current password is incorrect")
+    } else if (req.body.newPassword !== req.body.newPasswordConfirm) {
+        res.status(401).body("New password and password confirmation don't match!")
+    } else {
+        let hashedPassword = bcrypt.hashSync(req.body.newPassword, salt);
+        currentUser.password = hashedPassword;
+        User.findByIdAndUpdate(req.body.id, currentUser)
+        .then(() => {
+          res.status(200).body("Your password has been updated");
+        })
+        .catch((err) => {
+            console.log(err);
+            res.status(400).body("Sorry there was an error");
+        })
+    }
+
+  })
+  .catch(error => {
+    console.log(error);
+    res.status(400).body("Sorry there was an error");
+  })
+
 };
