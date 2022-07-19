@@ -64,4 +64,16 @@ exports.trip_update_put = (req, res) => {
     .catch(error => {
         console.log(error)
     })
+};
+
+// HTTP DELETE - Delete trip by ID
+exports.trip_delete_get = (req, res) => {
+    console.log(req.query.id)
+    Trip.findByIdAndDelete(req.query.id)
+    .then((trip) => {
+        res.json(trip)
+    })
+    .catch(error => {
+        console.log(error)
+    })
 }
