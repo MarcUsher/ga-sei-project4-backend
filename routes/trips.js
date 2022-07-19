@@ -18,5 +18,7 @@ router.get("/trip/detail/:id", tripCtrl.trip_show_get);
 // Edit Trip
 router.get("/trip/edit", tripCtrl.trip_edit_get);
 router.put("/trip/update", tripCtrl.trip_update_put);
+// Delete Trip
+router.delete("/trip/delete", tripCtrl.trip_delete_get);
 
 module.exports = router;

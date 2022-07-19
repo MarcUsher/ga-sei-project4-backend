@@ -35,7 +35,7 @@ exports.trip_index_get = (req, res) => {
 exports.trip_show_get = (req, res) => {
     console.log(req.params.id);
 
-    Trip.findById(req.params.id).populate('country')
+    Trip.findById(req.params.id)
     .then(trip => {
         res.json({trip: trip})
     })
@@ -60,6 +60,18 @@ exports.trip_update_put = (req, res) => {
     Trip.findByIdAndUpdate(req.body._id, req.body, {new: true})
     .then((trip) => {
         res.json({trip})
+    })
+    .catch(error => {
+        console.log(error)
+    })
+};
+
+// HTTP DELETE - Delete trip by ID
+exports.trip_delete_get = (req, res) => {
+    console.log(req.query.id)
+    Trip.findByIdAndDelete(req.query.id)
+    .then((trip) => {
+        res.json(trip)
     })
     .catch(error => {
         console.log(error)
