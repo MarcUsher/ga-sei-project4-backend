@@ -113,3 +113,31 @@ exports.user_update_put = (req, res) =>{
   })
 }
 
+//  CHANGE PASSWORD
+
+exports.auth_password_put = (req, res, next) => {
+  var user = req.user;
+  if (!bcrypt.compareSync(req.body.password, user.password)) {
+      req.flash("error", "Your current password is incorrect!")
+      res.redirect('/auth/password')
+  } else if (req.body.newPassword !== req.body.newPasswordConfirm) {
+      req.flash("error", "New password and password confirmation don't match!")
+      res.redirect('/auth/password')
+  } else {
+      User.findByIdAndUpdate(req.body.id, req.body)
+      .then(() => {
+      let hashedPassword = bcrypt.hashSync(req.body.newPassword, salt);
+      user.password = hashedPassword;
+      user.save(function(err){
+          if (err) { next(err) }
+              else {
+                  res.redirect('/auth/profile');
+              }
+          })
+      })
+      .catch((err) => {
+          console.log(err);
+          res.send("Sorry there was an error");
+      })
+  }
+};
