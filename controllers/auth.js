@@ -122,19 +122,19 @@ exports.auth_password_put = (req, res, next) => {
     currentUser = user
 
     if (!bcrypt.compareSync(req.body.currentPassword, currentUser.password)) {
-        res.status(401).body("Current password is incorrect")
+        res.status(401).send("Current password is incorrect")
     } else if (req.body.newPassword !== req.body.newPasswordConfirm) {
-        res.status(401).body("New password and password confirmation don't match!")
+        res.status(401).send("New password and password confirmation don't match!")
     } else {
         let hashedPassword = bcrypt.hashSync(req.body.newPassword, salt);
         currentUser.password = hashedPassword;
         User.findByIdAndUpdate(req.body.id, currentUser)
         .then(() => {
-          res.status(200).body("Your password has been updated");
+          res.status(200).send("Your password has been updated");
         })
         .catch((err) => {
             console.log(err);
-            res.status(400).body("Sorry there was an error");
+            res.status(400).send("Sorry there was an error");
         })
     }
 
