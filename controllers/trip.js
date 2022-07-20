@@ -22,7 +22,7 @@ exports.trip_create_post = (req, res) => {
 
 // HTTP GET - To load all the trips within the database
 exports.trip_index_get = (req, res) => {
-    Trip.find().populate('country')
+    Trip.find().populate('country').populate('createdBy')
     .then(trips => {
         res.json({trips: trips})
     })
@@ -35,7 +35,7 @@ exports.trip_index_get = (req, res) => {
 exports.trip_show_get = (req, res) => {
     console.log(req.params.id);
 
-    Trip.findById(req.params.id)
+    Trip.findById(req.params.id).populate('createdBy')
     .then(trip => {
         res.json({trip: trip})
     })
