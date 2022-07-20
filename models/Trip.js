@@ -12,7 +12,11 @@ const tripSchema = mongoose.Schema({
     favs: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
-    }]
+    }],
+    createdBy: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    }
 });
 
 const Trip = mongoose.model("Trip", tripSchema);
