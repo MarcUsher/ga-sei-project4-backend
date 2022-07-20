@@ -11,10 +11,17 @@ const { findOne } = require("../models/User");
 const salt = 10;
 
 
-// HTTP POST - Signup Route - To post/save the data
 
+
+
+// API ROUTES
+
+
+// HTTP POST - Signup Route - To post/save the data
 exports.auth_signup_post = (req, res) => {
+  // upload.single('profileImage')
   let user = new User(req.body);
+  // user.profileImage = req.file;
 
   // Hash the password
   let hashedPassword = bcrypt.hashSync(req.body.password, salt);
@@ -101,7 +108,7 @@ exports.auth_profile_get = (req, res) => {
 })
 }
 
-exports.user_update_put = (req, res) =>{
+exports.user_update_put = (req, res) => {
   console.log("req.body", req.body.id)
   User.findByIdAndUpdate(req.body.id, req.body, {new: true})
   .then((user) => {
