@@ -21,4 +21,6 @@ router.put("/trip/update", isLoggedIn, tripCtrl.trip_update_put);
 // Delete Trip
 router.delete("/trip/delete", isLoggedIn, tripCtrl.trip_delete_get);
 
+router.get("/trip/editLike", tripCtrl.trip_editLike_get);
+
 module.exports = router;

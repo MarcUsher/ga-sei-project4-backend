@@ -76,4 +76,15 @@ exports.trip_delete_get = (req, res) => {
     .catch(error => {
         console.log(error)
     })
-}
+};
+
+
+exports.trip_editLike_get = (req, res) => {
+    Trip.findById(req.query.id)
+    .then((trip) => {
+        res.json({trip})
+    })
+    .catch(error => {
+        console.log(error)
+    })
+};
