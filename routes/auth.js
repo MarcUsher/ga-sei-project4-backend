@@ -11,11 +11,12 @@ let path = require('path')
 
 const storage = multer.diskStorage({
   destination: (req, file, callback) => {
-    callback(null, "./../triptips-FE/public/img/profileUploads")
-    // callback(null, "../images/profileImages")
+    callback(null, "./../triptips-FE/public/img/profileImages")
+    // callback(null, "./images/profileImages")
   }, 
   filename: (req, file, callback) => {
-    callback(null, file.originalname);
+    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)
+    callback(null, uniqueSuffix + '-' + file.originalname);
   }
 })
 
@@ -26,8 +27,8 @@ const upload = multer({ storage: storage });
 
 const authCtrl = require("../controllers/auth");
 
-// router.post("/auth/signup", upload.single('profileImage'), authCtrl.auth_signup_post);
-router.post("/auth/signup", authCtrl.auth_signup_post);
+router.post("/auth/signup", upload.single('profileImage'), authCtrl.auth_signup_post);
+// router.post("/auth/signup", authCtrl.auth_signup_post);
 router.post("/auth/signin", authCtrl.auth_signin_post);
 router.get("/auth/logout", authCtrl.auth_logout_get);
 router.get("/auth/profile", authCtrl.auth_profile_get);

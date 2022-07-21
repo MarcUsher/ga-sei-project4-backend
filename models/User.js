@@ -32,9 +32,9 @@ const userSchema = mongoose.Schema({
         required: true,
         minlength: [6, "Password must be longer than 6 characters"]
     },
-    // profileImage: {
-    //     type: String,
-    // }
+    profileImage: {
+        type: String,
+    },
     // country: [{
     //     type: mongoose.Schema.Types.ObjectId,
     //     ref: 'Country'

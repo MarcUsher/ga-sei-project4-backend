@@ -21,13 +21,13 @@ const salt = 10;
 exports.auth_signup_post = (req, res) => {
   // upload.single('profileImage')
   let user = new User(req.body);
-  // user.profileImage = req.file;
 
   // Hash the password
   let hashedPassword = bcrypt.hashSync(req.body.password, salt);
   console.log(hashedPassword);
 
   user.password = hashedPassword;
+  user.profileImage = req.file.filename
 
   user
     .save()
