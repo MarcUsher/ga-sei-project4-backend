@@ -19,7 +19,7 @@ const salt = 10;
 
 // HTTP POST - Signup Route - To post/save the data
 exports.auth_signup_post = (req, res) => {
-  // upload.single('profileImage')
+  console.log("req.body", req.body)
   let user = new User(req.body);
 
   // Hash the password
@@ -27,7 +27,12 @@ exports.auth_signup_post = (req, res) => {
   console.log(hashedPassword);
 
   user.password = hashedPassword;
-  user.profileImage = req.file.filename
+
+  if (req.file) {
+    user.profileImage = req.file.filename
+  } else {
+    user.profileImage = null
+  };  
 
   user
     .save()
@@ -108,16 +113,44 @@ exports.auth_profile_get = (req, res) => {
 })
 }
 
+
 exports.user_update_put = (req, res) => {
-  console.log("req.body", req.body.id)
-  User.findByIdAndUpdate(req.body.id, req.body, {new: true})
+  console.log("req.body", req.body)
+  User.findById(req.body.id)
   .then((user) => {
-      res.json({user})
+      currentUser = req.body
+      if (req.file) {
+        currentUser.profileImage = req.file.filename
+      } else if (currentUser.profileImage) {
+        currentUser.profileImage = currentUser.profileImage
+      } else {
+        currentUser.profileImage = null
+      }
+
+      User.findByIdAndUpdate(req.body.id, currentUser, {new: true})
+      .then((currentUser) => {
+        res.json({currentUser})
+      })
+      .catch(err => {
+        console.log(err)
+      })
   })
   .catch(err => {
       console.log(err)
   })
 }
+
+// exports.user_update_put = (req, res) => {
+//   console.log("req.body", req.body)
+//   User.findByIdAndUpdate(req.body.id, req.body, {new: true})
+//   .then((user) => {
+//       console.log(user)
+//       res.json({user})
+//   })
+//   .catch(err => {
+//       console.log(err)
+//   })
+// }
 
 //  CHANGE PASSWORD
 
