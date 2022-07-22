@@ -78,8 +78,9 @@ exports.trip_delete_get = (req, res) => {
     })
 };
 
-
+// Like Functionality
 exports.trip_editLike_get = (req, res) => {
+    // console.log("TRIP FINDBYID", req)
     Trip.findById(req.query.id)
     .then((trip) => {
         res.json({trip})
@@ -87,4 +88,38 @@ exports.trip_editLike_get = (req, res) => {
     .catch(error => {
         console.log(error)
     })
+};
+
+exports.trip_updateLike_put = (req, res) => {
+    console.log("UPDATE", req.body._id)
+    console.log("CURRENT USER", req.user.id)
+    Trip.findByIdAndUpdate(req.body._id, req.body, {new: true})
+    .then((trip) => {
+        trip.favs = trip.favs.push(req.user.id)
+        res.json({trip})
+    })
+    .catch(error => {
+        console.log(error)
+    })
+
+    // Trip.findById(req.query.id)
+    // console.log("USER ID", req.body.user.id)
+    // .then((trip) => {
+    //     console.log("USER ID", req.body)
+    //     newTrip = trip
+  
+    //     newTrip.favs = newTrip.favs.push(req.body.currentUser.id)
+  
+    //     Trip.findByIdAndUpdate(req.body._id, req.body, {new: true})
+    //     .then((newTrip) => {
+    //       res.json({newTrip})
+    //     })
+    //     .catch(err => {
+    //       console.log(err)
+    //     })
+    // })
+    // .catch(err => {
+    //     console.log(err)
+    // })
+
 };
