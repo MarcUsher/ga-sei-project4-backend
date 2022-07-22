@@ -118,11 +118,13 @@ exports.user_update_put = (req, res) => {
   console.log("req.body", req.body)
   User.findById(req.body.id)
   .then((user) => {
-      // console.log("USER", user)
-      // console.log("req.body", req.body)
+      console.log("USER", user)
+      console.log("req.body", req.body)
 
       currentUser = user
-      // console.log("currentUser", currentUser)
+
+      console.log("currentUser", currentUser)
+
       if (req.file) {
         currentUser.profileImage = req.file.filename
       } else if (currentUser.profileImage) {
@@ -130,11 +132,13 @@ exports.user_update_put = (req, res) => {
       } else {
         currentUser.profileImage = null
       }
+
       currentUser.firstName = req.body.firstName
       currentUser.lastName = req.body.lastName
       currentUser.username = req.body.username
       currentUser.emailAddress = req.body.emailAddress
 
+      console.log("currentUser updated: ", currentUser)
       User.findByIdAndUpdate(req.body.id, currentUser, {new: true})
       .then((currentUser) => {
         res.json({currentUser})
