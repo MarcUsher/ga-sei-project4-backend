@@ -7,8 +7,20 @@ exports.trip_create_get = (req, res) => {
 };
 
 exports.trip_create_post = (req, res) => {
-    // console.log(req.body);
+    // console.log("req.body", req.body);
     let trip = new Trip(req.body);
+
+    // let galleryArray = []
+    // if (req.files) {
+    //     for (let i = 0; i < req.files.length; i++) {
+    //         galleryArray.push(req.files[i].filename)
+    //       }
+    //     trip.gallery = galleryArray
+    // } else {
+    //     trip.gallery = []
+    // };
+
+    // console.log("trip.gallery", trip.gallery)
 
     trip.save()
     .then((trip) => {

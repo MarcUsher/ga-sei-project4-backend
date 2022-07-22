@@ -16,7 +16,8 @@ const tripSchema = mongoose.Schema({
     createdBy: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
-    }
+    },
+    gallery: [String],
 });
 
 const Trip = mongoose.model("Trip", tripSchema);
