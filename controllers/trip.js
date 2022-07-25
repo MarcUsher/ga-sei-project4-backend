@@ -1,19 +1,41 @@
 const {Trip} = require("../models/Trip");
 const isLoggedIn = require("../helper/isLoggedIn");
+const parser = require('../helper/cloudinary.config')
 
 // HTTP GET & POST - To create and add a new trip
 exports.trip_create_get = (req, res) => {
     res.render("trip/add")
 };
 
-exports.trip_create_post = (req, res) => {
-    // console.log("req.body", req.body);
+exports.trip_create_post = async (req, res) => {
+    console.log("req.body", req.body);
     let trip = new Trip(req.body);
+    console.log("NEW TRIP", trip)
+
+    if (req.file) {
+        trip.image = req.file.path
+      } else {
+        trip.image = null
+      }; 
 
     // let galleryArray = []
+    // let multiple = async (path) => await parser(path)
+
+    // if (req.files) {
+    //     for (const file of files) {
+    //         const {path} = file
+    //         const newPath = await multiple(path)
+    //         galleryArray.push(newPath)
+    //       }
+    //     trip.gallery = galleryArray
+    // } else {
+    //     trip.gallery = []
+    // };
+
+
     // if (req.files) {
     //     for (let i = 0; i < req.files.length; i++) {
-    //         galleryArray.push(req.files[i].filename)
+    //         galleryArray.push(req.files[i].path)
     //       }
     //     trip.gallery = galleryArray
     // } else {
