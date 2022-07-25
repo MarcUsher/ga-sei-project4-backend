@@ -8,7 +8,11 @@ const tripSchema = mongoose.Schema({
         },
     city: String,
     summary: String, 
-    rating: Number,
+    rating: {
+        type: Number,
+        min: 0,
+        max: 5,
+    },
     favs: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
@@ -16,7 +20,9 @@ const tripSchema = mongoose.Schema({
     createdBy: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
-    }
+    },
+    // gallery: [String],
+    image: String,
 });
 
 const Trip = mongoose.model("Trip", tripSchema);
