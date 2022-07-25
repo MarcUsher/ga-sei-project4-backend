@@ -43,8 +43,8 @@ router.get("/trip/edit", isLoggedIn, tripCtrl.trip_edit_get);
 router.put("/trip/update", isLoggedIn, tripCtrl.trip_update_put);
 // Delete Trip
 router.delete("/trip/delete", isLoggedIn, tripCtrl.trip_delete_get);
-
+// Like Trip
 router.get("/trip/editLike", isLoggedIn, tripCtrl.trip_editLike_get);
-router.put("/trip/updateLike", isLoggedIn, tripCtrl.trip_updateLike_put);
+router.put("/trip/updateLike", isLoggedIn, tripCtrl.trip_favs_update);
 
 module.exports = router;

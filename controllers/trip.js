@@ -114,7 +114,6 @@ exports.trip_delete_get = (req, res) => {
 
 // Like Functionality
 exports.trip_editLike_get = (req, res) => {
-    // console.log("TRIP FINDBYID", req)
     Trip.findById(req.query.id)
     .then((trip) => {
         res.json({trip})
@@ -123,6 +122,37 @@ exports.trip_editLike_get = (req, res) => {
         console.log(error)
     })
 };
+
+exports.trip_favs_update = (req, res) => {
+    Trip.findById(req.body._id)
+    .then((trip) => {
+        if(trip.favs.includes(req.user.id)){
+            let i = trip.favs.indexOf(req.user.id)
+            trip.favs.splice(i, 1)
+            trip.save()
+            .then((trip) => {
+                res.json({trip})
+            })
+            .catch(error => {
+                console.log(error)
+            })
+        }
+        else{
+            trip.favs.push(req.user.id)
+            trip.save()
+            .then((trip) => {
+                res.json({trip})
+            })
+            .catch(error => {
+                console.log(error)
+            })
+        }
+
+    })
+    .catch(error => {
+        console.log(error)
+    })
+}
 
 exports.trip_updateLike_put = (req, res) => {
     console.log("UPDATE", req.body._id)
@@ -135,25 +165,5 @@ exports.trip_updateLike_put = (req, res) => {
     .catch(error => {
         console.log(error)
     })
-
-    // Trip.findById(req.query.id)
-    // console.log("USER ID", req.body.user.id)
-    // .then((trip) => {
-    //     console.log("USER ID", req.body)
-    //     newTrip = trip
-  
-    //     newTrip.favs = newTrip.favs.push(req.body.currentUser.id)
-  
-    //     Trip.findByIdAndUpdate(req.body._id, req.body, {new: true})
-    //     .then((newTrip) => {
-    //       res.json({newTrip})
-    //     })
-    //     .catch(err => {
-    //       console.log(err)
-    //     })
-    // })
-    // .catch(err => {
-    //     console.log(err)
-    // })
 
 };
