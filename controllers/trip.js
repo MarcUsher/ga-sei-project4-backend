@@ -7,8 +7,20 @@ exports.trip_create_get = (req, res) => {
 };
 
 exports.trip_create_post = (req, res) => {
-    // console.log(req.body);
+    // console.log("req.body", req.body);
     let trip = new Trip(req.body);
+
+    // let galleryArray = []
+    // if (req.files) {
+    //     for (let i = 0; i < req.files.length; i++) {
+    //         galleryArray.push(req.files[i].filename)
+    //       }
+    //     trip.gallery = galleryArray
+    // } else {
+    //     trip.gallery = []
+    // };
+
+    // console.log("trip.gallery", trip.gallery)
 
     trip.save()
     .then((trip) => {
@@ -78,8 +90,9 @@ exports.trip_delete_get = (req, res) => {
     })
 };
 
-
+// Like Functionality
 exports.trip_editLike_get = (req, res) => {
+    // console.log("TRIP FINDBYID", req)
     Trip.findById(req.query.id)
     .then((trip) => {
         res.json({trip})
@@ -87,4 +100,38 @@ exports.trip_editLike_get = (req, res) => {
     .catch(error => {
         console.log(error)
     })
+};
+
+exports.trip_updateLike_put = (req, res) => {
+    console.log("UPDATE", req.body._id)
+    console.log("CURRENT USER", req.user.id)
+    Trip.findByIdAndUpdate(req.body._id, req.body, {new: true})
+    .then((trip) => {
+        trip.favs = trip.favs.push(req.user.id)
+        res.json({trip})
+    })
+    .catch(error => {
+        console.log(error)
+    })
+
+    // Trip.findById(req.query.id)
+    // console.log("USER ID", req.body.user.id)
+    // .then((trip) => {
+    //     console.log("USER ID", req.body)
+    //     newTrip = trip
+  
+    //     newTrip.favs = newTrip.favs.push(req.body.currentUser.id)
+  
+    //     Trip.findByIdAndUpdate(req.body._id, req.body, {new: true})
+    //     .then((newTrip) => {
+    //       res.json({newTrip})
+    //     })
+    //     .catch(err => {
+    //       console.log(err)
+    //     })
+    // })
+    // .catch(err => {
+    //     console.log(err)
+    // })
+
 };
