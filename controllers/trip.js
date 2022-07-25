@@ -90,10 +90,37 @@ exports.trip_edit_get = (req, res) => {
 };
 
 exports.trip_update_put = (req, res) => {
-    console.log(req.body._id)
-    Trip.findByIdAndUpdate(req.body._id, req.body, {new: true})
+    console.log(req.body.id)
+    Trip.findById(req.body.id)
     .then((trip) => {
-        res.json({trip})
+        console.log("req.body", req.body)
+        console.log("TRIP", trip)
+        editedTrip = trip
+
+        if (req.file) {
+            trip.image = req.file.path
+        } else if (trip.image) {
+            trip.image = trip.image
+        } else {
+            trip.image = null
+        };
+
+        editedTrip.title = req.body.title
+        editedTrip.country = req.body.country
+        editedTrip.city = req.body.city
+        editedTrip.summary = req.body.summary
+        editedTrip.rating = req.body.rating
+
+        console.log("EDITED TRIP", editedTrip)
+
+        Trip.findByIdAndUpdate(req.body.id, editedTrip, {new: true})
+        .then((trip) => {
+            res.json({trip})
+        })
+        .catch(error => {
+            console.log(error)
+        })
+
     })
     .catch(error => {
         console.log(error)

@@ -40,7 +40,7 @@ router.get("/trip/index", tripCtrl.trip_index_get);
 router.get("/trip/detail/:id", tripCtrl.trip_show_get);
 // Edit Trip
 router.get("/trip/edit", isLoggedIn, tripCtrl.trip_edit_get);
-router.put("/trip/update", isLoggedIn, tripCtrl.trip_update_put);
+router.put("/trip/update", parser.single('image'), isLoggedIn, tripCtrl.trip_update_put);
 // Delete Trip
 router.delete("/trip/delete", isLoggedIn, tripCtrl.trip_delete_get);
 // Like Trip
