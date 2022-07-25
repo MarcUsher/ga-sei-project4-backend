@@ -29,7 +29,7 @@ exports.auth_signup_post = (req, res) => {
   user.password = hashedPassword;
 
   if (req.file) {
-    user.profileImage = req.file.filename
+    user.profileImage = req.file.path
   } else {
     user.profileImage = null
   };  
@@ -126,7 +126,7 @@ exports.user_update_put = (req, res) => {
       console.log("currentUser", currentUser)
 
       if (req.file) {
-        currentUser.profileImage = req.file.filename
+        currentUser.profileImage = req.file.path
       } else if (currentUser.profileImage) {
         currentUser.profileImage = currentUser.profileImage
       } else {
