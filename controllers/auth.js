@@ -37,11 +37,12 @@ exports.auth_signup_post = (req, res) => {
   user
     .save()
     .then(() => {
-      res.json({"message": "User created Successfully!"})
+      res.json({"type": "success", "message": "User created Successfully!"}).status(200)
     })
-    .catch((err) => {
-      console.log(err);
-      res.json({"message": "Error creating user, please try again later!"});
+    .catch((error) => {
+      console.log(error);
+      res.json({"type": "error", "message": "Error creating user, please try again"}).status(400)
+      // res.json({"type": "error", "message": `${error}`}).status(400)
     });
 };
 
@@ -58,7 +59,7 @@ exports.auth_signin_post = async (req, res) => {
     console.log("user", user)
 
     if(!user){
-      return res.json({"message": "User not found"}).status(400);
+      return res.json({"type": "error", "message": "User not found"}).status(400);
     }
 
     const isMatch = await bcrypt.compareSync(password, user.password)
@@ -66,7 +67,7 @@ exports.auth_signin_post = async (req, res) => {
     console.log("user.password",user.password)
 
     if(!isMatch) {
-      return res.json({"message": "Password doesn't match ! "}).status(400);
+      return res.json({"type": "error", "message": "Password doesn't match"}).status(400);
     }
 
     const payload = {
@@ -80,15 +81,15 @@ exports.auth_signin_post = async (req, res) => {
       payload,
       process.env.SECRET,
       { expiresIn: 360000000},
-      (err, token) => {
-        if(err) throw err;
+      (error, token) => {
+        if(error) throw error;
         res.json({token}).status(200)
       }
     )
   }
   catch(error) {
     console.log(error);
-    res.json({"message": "You are not logged in"})
+    res.json({"type": "error", "message": "You are not logged in"}).status(400)
   }
 }
 
@@ -106,10 +107,11 @@ exports.auth_logout_get = (req, res) => {
 exports.auth_profile_get = (req, res) => {
   User.findById(req.query.id)
   .then(user => {
-    res.json({user: user})
+    res.json({user: user}).status(200)
 })
   .catch(error => {
     console.log(error)
+    res.json({"type": "error", "message": "Error getting user profile"}).status(400)
 })
 }
 
@@ -141,28 +143,19 @@ exports.user_update_put = (req, res) => {
       console.log("currentUser updated: ", currentUser)
       User.findByIdAndUpdate(req.body.id, currentUser, {new: true})
       .then((currentUser) => {
-        res.json({currentUser})
+        // res.json({currentUser}).status(200)
+        res.json({currentUser}).status(200)
+
       })
-      .catch(err => {
-        console.log(err)
+      .catch(error => {
+        console.log(error)
+        res.json({"type": "error", "message": "Error Updating User Information - please try again"}).status(400)
       })
   })
-  .catch(err => {
-      console.log(err)
+  .catch(error => {
+      console.log(error).status(400)
   })
 }
-
-// exports.user_update_put = (req, res) => {
-//   console.log("req.body", req.body)
-//   User.findByIdAndUpdate(req.body.id, req.body, {new: true})
-//   .then((user) => {
-//       console.log(user)
-//       res.json({user})
-//   })
-//   .catch(err => {
-//       console.log(err)
-//   })
-// }
 
 //  CHANGE PASSWORD
 
@@ -174,26 +167,26 @@ exports.auth_password_put = (req, res, next) => {
     currentUser = user
 
     if (!bcrypt.compareSync(req.body.currentPassword, currentUser.password)) {
-        res.status(401).send("Current password is incorrect")
+        res.status(401).send({"type": "error", "message": "Current password is incorrect"})
     } else if (req.body.newPassword !== req.body.newPasswordConfirm) {
-        res.status(401).send("New password and password confirmation don't match!")
+        res.status(401).send({"type": "error", "message": "New password and password confirmation don't match"})
     } else {
         let hashedPassword = bcrypt.hashSync(req.body.newPassword, salt);
         currentUser.password = hashedPassword;
         User.findByIdAndUpdate(req.body.id, currentUser)
         .then(() => {
-          res.status(200).send("Your password has been updated");
+          res.send({"type": "success", "message": "Your password has been updated"}).status(200);
         })
-        .catch((err) => {
-            console.log(err);
-            res.status(400).send("Sorry there was an error");
+        .catch((error) => {
+            console.log(error);
+            res.send({"type": "error", "message": "Sorry there was an error"}).status(400);
         })
     }
 
   })
   .catch(error => {
     console.log(error);
-    res.status(400).body("Sorry there was an error");
+    res.body("Sorry there was an error").status(400);
   })
 
 };

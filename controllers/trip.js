@@ -18,6 +18,9 @@ exports.trip_create_post = async (req, res) => {
         trip.image = null
       }; 
 
+
+    // ATTEMPTED LOGIC FOR UPLOADING MULTIPLE IMAGES - CODE NOT WORKING
+
     // let galleryArray = []
     // let multiple = async (path) => await parser(path)
 
@@ -46,11 +49,12 @@ exports.trip_create_post = async (req, res) => {
 
     trip.save()
     .then((trip) => {
-        res.json({trip: trip})
+        res.json({trip: trip}).status(200)
     })
     .catch((error) => {
         console.log(error);
-        res.send("Error while adding a new trip. Please try again later.")
+        // res.status(400).send({"type": "error", "message": "Error adding a new trip. Please try again."})
+        res.json({"type": "error", "message": "Error adding a new trip. Please try again"}).status(400)
     })
 };
 
@@ -58,10 +62,11 @@ exports.trip_create_post = async (req, res) => {
 exports.trip_index_get = (req, res) => {
     Trip.find().populate('country').populate('createdBy')
     .then(trips => {
-        res.json({trips: trips})
+        res.json({trips: trips}).status(200)
     })
     .catch(error => {
         console.log(error)
+        res.json({"type": "error", "message": "Error loading all trips"}).status(400)
     })
 };
 
@@ -71,10 +76,11 @@ exports.trip_show_get = (req, res) => {
 
     Trip.findById(req.params.id).populate('createdBy').populate('country')
     .then(trip => {
-        res.json({trip: trip})
+        res.json({trip: trip}).status(200)
     })
     .catch(error => {
         console.log(error)
+        res.json({"type": "error", "message": "Error loading trip details. Please try again"}).status(400)
     })
 };
 
@@ -82,10 +88,11 @@ exports.trip_show_get = (req, res) => {
 exports.trip_edit_get = (req, res) => {
     Trip.findById(req.query.id)
     .then((trip) => {
-        res.json({trip})
+        res.json({trip}).status(200)
     })
     .catch(error => {
         console.log(error)
+        res.json({"type": "error", "message": "Error loading trip edit. Please try again"}).status(400)
     })
 };
 
@@ -115,15 +122,17 @@ exports.trip_update_put = (req, res) => {
 
         Trip.findByIdAndUpdate(req.body.id, editedTrip, {new: true})
         .then((trip) => {
-            res.json({trip})
+            res.json({trip}).status(200)
         })
         .catch(error => {
             console.log(error)
+            res.json({"type": "error", "message": "Error updating trip. Please try again"}).status(400)
         })
 
     })
     .catch(error => {
         console.log(error)
+        res.json({"type": "error", "message": "Error finding trip to edit. Please try again"}).status(400)
     })
 };
 
@@ -132,7 +141,7 @@ exports.trip_delete_get = (req, res) => {
     console.log(req.query.id)
     Trip.findByIdAndDelete(req.query.id)
     .then((trip) => {
-        res.json(trip)
+        res.json(trip).status(200)
     })
     .catch(error => {
         console.log(error)
@@ -143,7 +152,7 @@ exports.trip_delete_get = (req, res) => {
 exports.trip_editLike_get = (req, res) => {
     Trip.findById(req.query.id)
     .then((trip) => {
-        res.json({trip})
+        res.json({trip}).status(400)
     })
     .catch(error => {
         console.log(error)
@@ -158,7 +167,7 @@ exports.trip_favs_update = (req, res) => {
             trip.favs.splice(i, 1)
             trip.save()
             .then((trip) => {
-                res.json({trip})
+                res.json({trip}).status(200)
             })
             .catch(error => {
                 console.log(error)
@@ -168,7 +177,7 @@ exports.trip_favs_update = (req, res) => {
             trip.favs.push(req.user.id)
             trip.save()
             .then((trip) => {
-                res.json({trip})
+                res.json({trip}).status(200)
             })
             .catch(error => {
                 console.log(error)
@@ -187,7 +196,7 @@ exports.trip_updateLike_put = (req, res) => {
     Trip.findByIdAndUpdate(req.body._id, req.body, {new: true})
     .then((trip) => {
         trip.favs = trip.favs.push(req.user.id)
-        res.json({trip})
+        res.json({trip}).status(200)
     })
     .catch(error => {
         console.log(error)
