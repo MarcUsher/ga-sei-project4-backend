@@ -19,7 +19,7 @@ exports.trip_create_post = async (req, res) => {
         trip.image = null
       };
     
-      if (req.body.city2) {
+      if (req.body.city2 !== "undefined") {
         trip.city = req.body.city2;
         Country.findById(req.body.country, (err, country) => {
             country.cities.push(req.body.city2)
