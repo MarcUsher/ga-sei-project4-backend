@@ -1,4 +1,5 @@
 const {Trip} = require("../models/Trip");
+const {Country} = require("../models/Country")
 const isLoggedIn = require("../helper/isLoggedIn");
 const parser = require('../helper/cloudinary.config')
 
@@ -16,7 +17,15 @@ exports.trip_create_post = async (req, res) => {
         trip.image = req.file.path
       } else {
         trip.image = null
-      }; 
+      };
+    
+      if (req.body.city2) {
+        trip.city = req.body.city2;
+        Country.findById(req.body.country, (err, country) => {
+            country.cities.push(req.body.city2)
+            country.save();
+        })
+      }
 
 
     // ATTEMPTED LOGIC FOR UPLOADING MULTIPLE IMAGES - CODE NOT WORKING
