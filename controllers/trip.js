@@ -29,10 +29,10 @@ exports.trip_create_post = async (req, res) => {
 
 
     // ATTEMPTED LOGIC FOR UPLOADING MULTIPLE IMAGES - CODE NOT WORKING
-
     // let galleryArray = []
     // let multiple = async (path) => await parser(path)
 
+    // MULTIPLE IMAGES IF STATEMENT V01
     // if (req.files) {
     //     for (const file of files) {
     //         const {path} = file
@@ -44,7 +44,7 @@ exports.trip_create_post = async (req, res) => {
     //     trip.gallery = []
     // };
 
-
+    // MULTIPLE IMAGES IF STATEMENT V02
     // if (req.files) {
     //     for (let i = 0; i < req.files.length; i++) {
     //         galleryArray.push(req.files[i].path)
@@ -62,7 +62,6 @@ exports.trip_create_post = async (req, res) => {
     })
     .catch((error) => {
         console.log(error);
-        // res.status(400).send({"type": "error", "message": "Error adding a new trip. Please try again."})
         res.json({"type": "error", "message": "Error adding a new trip. Please try again"}).status(400)
     })
 };
@@ -157,7 +156,7 @@ exports.trip_delete_get = (req, res) => {
     })
 };
 
-// Like Functionality
+// LIKE FUNCTIONALITY
 exports.trip_editLike_get = (req, res) => {
     Trip.findById(req.query.id)
     .then((trip) => {

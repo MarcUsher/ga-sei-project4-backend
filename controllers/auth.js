@@ -42,7 +42,6 @@ exports.auth_signup_post = (req, res) => {
     .catch((error) => {
       console.log(error);
       res.json({"type": "error", "message": "Error creating user, please try again"}).status(400)
-      // res.json({"type": "error", "message": `${error}`}).status(400)
     });
 };
 
