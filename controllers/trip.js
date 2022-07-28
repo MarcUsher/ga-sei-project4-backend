@@ -197,17 +197,3 @@ exports.trip_favs_update = (req, res) => {
         console.log(error)
     })
 }
-
-exports.trip_updateLike_put = (req, res) => {
-    console.log("UPDATE", req.body._id)
-    console.log("CURRENT USER", req.user.id)
-    Trip.findByIdAndUpdate(req.body._id, req.body, {new: true})
-    .then((trip) => {
-        trip.favs = trip.favs.push(req.user.id)
-        res.json({trip}).status(200)
-    })
-    .catch(error => {
-        console.log(error)
-    })
-
-};

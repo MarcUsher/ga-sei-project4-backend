@@ -121,7 +121,7 @@ The below code snippet shows the change password functionality which uses bcrypt
   })
 ```
 
-The below snipped displays how cloudinary was configured and subsequently exports it as parser:
+The below snipped displays how cloudinary was configured and subsequently exports it as parser, and how the images are dealt with in the Controller:
 ```
 cloudinary.config({
     cloud_name: CLOUDINARY_HOST,
@@ -142,12 +142,40 @@ const storage = new CloudinaryStorage({
 
 const parser = multer({storage: storage})
 ```
+```
+exports.trip_create_post = async (req, res) => {
+    let trip = new Trip(req.body);
+
+    if (req.file) {
+        trip.image = req.file.path
+      } else {
+        trip.image = null
+      };
+    
+      if (req.body.city2 !== "undefined") {
+        trip.city = req.body.city2;
+        Country.findById(req.body.country, (err, country) => {
+            country.cities.push(req.body.city2)
+            country.save();
+        })
+      }
+
+    trip.save()
+    .then((trip) => {
+        res.json({trip: trip}).status(200)
+    })
+    .catch((error) => {
+        console.log(error);
+        res.json({"type": "error", "message": "Error adding a new trip. Please try again"}).status(400)
+    })
+};
+```
 
 ## Front-end
 As a consequence of how we initially divided the workload, we each started working on the relatively front-end. 
-- Alex started from creating the User profile page which displays all of the experiences created by that specific User, she then proceeded to work on the My Trips and Favs page. As part of the authorization field, she also worked on the log-in/out pages and functionality. Alex has also developed the vast majority of the CSS styling. Her help was crucial as her input played a huge part in solving the "like" functionality related issues.
-- Elisabetta first step was to display the created experiences on the Browse Trips page and to create the detail page for each Trip which allows the User to access a edit/delete button (only if the User is the same one who created that specific experience). Subsequently she worked on the "like" functionality which encourages the User to like specific experiences and stores them in the Favs page and as a last step she worked on the Top Ten page which displays only the 10 top liked experiences.
-- Marc first task was to create the Countries and Cities dataset in the database and to link that to the "add trip" functionality. When a User picks a specific Country from the dropdown menu, only the related cities show in the next menu. He also worked on the option that, in case a city is missing, enables the User to create a new one and adds it to the database. He later researched imaged-upload using Multer middleware and successfully implemented this feature both on the User's profile page and "add trip" form.The images were initially stored in the front-end local storage, but he worked on uploading them to Cloudinary via API.
+- **Alex** started from creating the User profile page which displays all of the experiences created by that specific User, she then proceeded to work on the My Trips and Favs page. As part of the authorization field, she also worked on the log-in/out pages and functionality. Alex has also developed the vast majority of the CSS styling. Her help was crucial as her input played a huge part in solving the "like" functionality related issues.
+- **Elisabetta's** first step was to display the created experiences on the Browse Trips page and to create the detail page for each Trip which allows the User to access a edit/delete button (only if the User is the same one who created that specific experience). Subsequently she worked on the "like" functionality which encourages the User to like specific experiences and stores them in the Favs page and as a last step she worked on the Top Ten page which displays only the 10 top liked experiences.
+- **Marc's** first task was to create the Countries and Cities dataset in the database and to link that to the "add trip" functionality. When a User picks a specific Country from the dropdown menu, only the related cities show in the next menu. He also worked on the option that, in case a city is missing, enables the User to create a new one and adds it to the database. He later researched imaged-upload using Multer middleware and successfully implemented this feature both on the User's profile page and "add trip" & "edit trip" forms.The images were initially stored in the front-end local storage, but he worked on uploading them to Cloudinary via API. He also added a filter on 'Browse Trips' allowing the User to filter the trips by country.
 
 The below snippet displays how, within the Trip Create Form, the data in the dropdowns is correctly displayed:
 ```
