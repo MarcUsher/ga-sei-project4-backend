@@ -40,9 +40,9 @@ Trip Tips is a MERN-Stack community application which aims to help visitors find
 
 As a visitor the functionality is limited to viewing the Top 10 most-liked trips and browsing the all existing trips ones, but registered users can add their own travel experiences and like existing trips added by others using, which which saves them to that user’s "favs" page, making it easy and convenient to find them again. 
 
-![Trip Tips Screenshot - Top Ten page](/triptips-BE/public/img/readme/appscreenshot-01.png)
-![Trip Tips Screenshot - Browse Trips page](/triptips-BE/public/img/readme/appscreenshot-02.png)
-![Trip Tips Screenshot - Profile Page](/triptips-BE/public/img/readme/appscreenshot-03.png)
+![Trip Tips Screenshot - Top Ten page](/public/img/readme/appscreenshot-01.png)
+![Trip Tips Screenshot - Browse Trips page](/public/img/readme/appscreenshot-02.png)
+![Trip Tips Screenshot - Profile Page](/public/img/readme/appscreenshot-03.png)
 
 
 ### Deployed App
@@ -97,7 +97,7 @@ With this being our most complex project to date, with separate front-end and ba
 
 As a first step, once we had discussed our interests and agreed on the idea for the application, we set up a Trello board and straight away started developing the user stories, ERD and wireframes. 
 
-![Trip Tips Screenshot - Profile Page](/triptips-BE/public/img/readme/trello-01.png)
+![Trip Tips Screenshot - Profile Page](/public/img/readme/trello-01.png)
 
 We also all agreed that good communication would be a focal point throughout the process. We started each day with stand-up discussions where we would share our progress and evaluate our daily tasks, set out our objectives for the day and share any blockers. 
 
@@ -134,19 +134,19 @@ We originally included Country and City as fields within the Trip model, but dec
 
 Some of the fields in our Trip model (recommendations, warnings and budgets) were not implemented, as these user stories stayed in the icebox due to time constraints.
 
-![Entity Relationship Diagram](/triptips-BE/public/img/readme/ERDs.png)
+![Entity Relationship Diagram](/public/img/readme/ERDs.png)
 
 ### Mockups
 Alexandra led a group session where we created mockups for the site in AdobeXD, with input from the full team. **[See all mockups](https://xd.adobe.com/view/b6d3a46f-e6ee-494f-8e91-6089478e287a-e380/)**.
 
 Selection of mockups:
-![Mockup - Grid of all mockups](/triptips-BE/public/img/readme/mockup-01.png)
+![Mockup - Grid of all mockups](/public/img/readme/mockup-01.png)
 
 Landing page:
-![Mockup - Landing page](/triptips-BE/public/img/readme/mockup-02.png)
+![Mockup - Landing page](/public/img/readme/mockup-02.png)
 
 Profile Page:
-![Mockup - Profile Page](/triptips-BE/public/img/readme/mockup-03.png)
+![Mockup - Profile Page](/public/img/readme/mockup-03.png)
 
 ## Build Process
 
@@ -749,46 +749,46 @@ return (
 ## Final Product
 
 Homepage (for visitors):
-![Trip Tips Screenshot - Profile Page](/triptips-BE/public/img/readme/appscreenshot-03.png)
+![Trip Tips Screenshot - Profile Page](/public/img/readme/appscreenshot-03.png)
 
 Homepage (for authenticated users):
-![Trip Tips Screenshot - Profile Page](/triptips-BE/public/img/readme/appscreenshot-04.png)
+![Trip Tips Screenshot - Profile Page](/public/img/readme/appscreenshot-04.png)
 
 Browse Trips:
-![Trip Tips Screenshot - Profile Page](/triptips-BE/public/img/readme/appscreenshot-05.png)
+![Trip Tips Screenshot - Profile Page](/public/img/readme/appscreenshot-05.png)
 
 Browse Trips with filter showing countries of existing trips:
-![Trip Tips Screenshot - Profile Page](/triptips-BE/public/img/readme/appscreenshot-06.png)
+![Trip Tips Screenshot - Profile Page](/public/img/readme/appscreenshot-06.png)
 
 User profile page:
-![Trip Tips Screenshot - Profile Page](/triptips-BE/public/img/readme/appscreenshot-07.png)
+![Trip Tips Screenshot - Profile Page](/public/img/readme/appscreenshot-07.png)
 
 My Trips:
-![Trip Tips Screenshot - Profile Page](/triptips-BE/public/img/readme/appscreenshot-08.png)
+![Trip Tips Screenshot - Profile Page](/public/img/readme/appscreenshot-08.png)
 
 Favs:
-![Trip Tips Screenshot - Profile Page](/triptips-BE/public/img/readme/appscreenshot-09.png)
+![Trip Tips Screenshot - Profile Page](/public/img/readme/appscreenshot-09.png)
 
 Trip Detail (of Trip created by the authenticated user):
-![Trip Tips Screenshot - Profile Page](/triptips-BE/public/img/readme/appscreenshot-10.png)
+![Trip Tips Screenshot - Profile Page](/public/img/readme/appscreenshot-10.png)
 
 Trip Detail (any other trip):
-![Trip Tips Screenshot - Profile Page](/triptips-BE/public/img/readme/appscreenshot-11.png)
+![Trip Tips Screenshot - Profile Page](/public/img/readme/appscreenshot-11.png)
 
 Edit Profile:
-![Trip Tips Screenshot - Profile Page](/triptips-BE/public/img/readme/appscreenshot-12.png)
+![Trip Tips Screenshot - Profile Page](/public/img/readme/appscreenshot-12.png)
 
 Add Trip (showing pre-populated Country and City dropdown):
-![Trip Tips Screenshot - Profile Page](/triptips-BE/public/img/readme/appscreenshot-13.png)
+![Trip Tips Screenshot - Profile Page](/public/img/readme/appscreenshot-13.png)
 
 Edit Trip:
-![Trip Tips Screenshot - Profile Page](/triptips-BE/public/img/readme/appscreenshot-14.png)
+![Trip Tips Screenshot - Profile Page](/public/img/readme/appscreenshot-14.png)
 
 Signup:
-![Trip Tips Screenshot - Profile Page](/triptips-BE/public/img/readme/appscreenshot-15.png)
+![Trip Tips Screenshot - Profile Page](/public/img/readme/appscreenshot-15.png)
 
 Signin:
-![Trip Tips Screenshot - Profile Page](/triptips-BE/public/img/readme/appscreenshot-16.png)
+![Trip Tips Screenshot - Profile Page](/public/img/readme/appscreenshot-16.png)
 
 ## Conclusions
 
