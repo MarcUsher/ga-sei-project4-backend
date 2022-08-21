@@ -46,9 +46,8 @@ As a visitor the functionality is limited to viewing the Top 10 most-liked trips
 
 
 ### Deployed App
-[Visit Trip Tips](https://gatriptips.herokuapp.com/)
-
-[See the Front-end GitHub repository](https://github.com/MarcUsher/ga-sei-project4-frontend)
+* **[Visit Trip Tips](https://gatriptips.herokuapp.com/)**
+* [See the Front-end GitHub repository](https://github.com/MarcUsher/ga-sei-project4-frontend)
 
 ### Members
 - Marc Usher (Back-end Team Lead) - [GitHub](https://github.com/MarcUsher/) | [LinkedIn](https://www.linkedin.com/in/marcusher/)
